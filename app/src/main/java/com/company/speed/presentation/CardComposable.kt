@@ -26,14 +26,14 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
-import kotlin.math.pow
-import kotlin.math.roundToInt
-import kotlin.math.sqrt
+import kotlin.math.*
 import kotlin.random.Random
 
 /*
 
 This project is for learning CANVAS
+
+Design inspiration: https://www.behance.net/gallery/19253089/Flat-design-Playing-Cards
 
  */
 
@@ -65,6 +65,9 @@ fun Scale(
     var circleCenter by remember {
         mutableStateOf(Offset.Zero)
     }
+    var angle by remember {
+        mutableStateOf(0f)
+    }
     Canvas(modifier = modifier) {
         center = this.center
         circleCenter = Offset(
@@ -79,11 +82,11 @@ fun Scale(
             drawCircle(
                 circleCenter.x,
                 circleCenter.y,
-                radius.toPx() + 50f,
+                radius.toPx(),
                 Paint().apply {
-                    strokeWidth = scaleWidth.toPx()
-                    color = android.graphics.Color.BLACK
-                    setStyle(Paint.Style.FILL)
+                    strokeWidth = scaleWidth.toPx() + 50f
+                    color = android.graphics.Color.argb(20, 0, 0, 0)
+                    setStyle(Paint.Style.STROKE)
                 },
             )
             drawCircle(
@@ -92,16 +95,56 @@ fun Scale(
                 radius.toPx(),
                 Paint().apply {
                     strokeWidth = scaleWidth.toPx()
-                    color = android.graphics.Color.CYAN
-                    setStyle(Paint.Style.FILL)
+                            color = android.graphics.Color.argb(80, 255, 255, 255)
+                    setStyle(Paint.Style.STROKE)
                 }
             )
+            for (i in minWeight..maxWeight) {
+                val angleInDegrees = (i - initialWeight + angle - 90)
+                val angleInRadians = angleInDegrees * (PI / 180f).toFloat()
+                val lineType = when {
+                    i % 10 == 0 -> LineType.TenStep
+                    i % 5 == 0 -> LineType.FiveStep
+                    else -> LineType.Normal
+                }
+                val lineColor = when(lineType) {
+                    LineType.Normal -> style.normalLineColor
+                    LineType.FiveStep -> style.fiveStepLineColor
+                    LineType.TenStep -> style.tenStepLineColor
+                }
+                val lineLength = when(lineType) {
+                    LineType.Normal -> style.normalLineLength.toPx()
+                    LineType.FiveStep -> style.fiveStepLineLength.toPx()
+                    LineType.TenStep -> style.tenStepLineLength.toPx()
+                }
+                val radiusOfLineStart = outerRadius - lineLength
+                val lineStart = Offset(
+                    x = radiusOfLineStart * cos(angleInRadians) + circleCenter.x,
+                    y = radiusOfLineStart * sin(angleInRadians) + circleCenter.y
+                )
+                val lineEnd = Offset(
+                    x = outerRadius * cos(angleInRadians) + circleCenter.x,
+                    y = outerRadius * sin(angleInRadians) + circleCenter.y
+                )
+                drawLine(
+                    color = lineColor,
+                    start = lineStart,
+                    end = lineEnd,
+                    strokeWidth = 1.dp.toPx()
+                )
+            }
         }
     }
 }
 
+sealed class LineType {
+    object Normal : LineType()
+    object FiveStep : LineType()
+    object TenStep : LineType()
+}
+
 data class ScaleStyle(
-    val scaleWidth: Dp = 100.dp,
+    val scaleWidth: Dp = 200.dp,
     val radius: Dp = 550.dp,
     val normalLineColor: Color = Color.LightGray,
     val fiveStepLineColor: Color = Color.Green,

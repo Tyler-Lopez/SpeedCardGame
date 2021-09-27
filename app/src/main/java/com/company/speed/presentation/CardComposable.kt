@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
@@ -44,10 +45,16 @@ Design inspiration: https://www.behance.net/gallery/19253089/Flat-design-Playing
 
 @Composable
 fun MyCanvas() {
-    Box(modifier = Modifier.fillMaxSize().padding(20.dp)) {
-        PlayingCard(modifier = Modifier
+    Box(
+        modifier = Modifier
             .fillMaxSize()
-            .align(alignment = Alignment.Center))
+            .padding(20.dp)
+    ) {
+        PlayingCard(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(alignment = Alignment.Center)
+        )
     }
 }
 
@@ -55,15 +62,54 @@ fun MyCanvas() {
 fun PlayingCard(
     modifier: Modifier = Modifier,
 ) {
-    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
-        val cardWidth = constraints.maxWidth.toFloat()
-        val cardHeight = cardWidth * 1.25f
-        Canvas(modifier = modifier) {
-                drawRoundRect(
-                    color = Color.LightGray,
-                    cornerRadius = CornerRadius(100f, 100f),
-                    size = Size(cardWidth, cardHeight)
-                )
-            }
-        }
-    }
+    Square(unitLength = 100, degreeRotation = 0f, topLeftX = 150, topLeftY = 100, color = Color.Magenta)
+    SmallTriangle(unitLength = 100, degreeRotation = 45f, topLeftX = 34, topLeftY = 325, color = Color.Red)
+    LargeTriangle(preUnitLength = 100, degreeRotation = 0f, topLeftX = 50, topLeftY = 300, color = Color.Blue)
+
+    /* BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+         val cardWidth = constraints.maxWidth.toFloat()
+         val cardHeight = cardWidth * 1.25f
+         val cardSize = Size(cardWidth, cardHeight)
+         val widthOfUnit = 400f
+         Canvas(modifier = modifier) {
+             drawRoundRect(
+                 color = LightGray,
+                 cornerRadius = CornerRadius(50f, 50f),
+                 size = cardSize,
+                 topLeft = Offset(
+                     x = 0f,
+                     y = (constraints.maxHeight.toFloat() / 2f) - (cardSize.height / 2f) // Position card in center of Y
+                 )
+             )
+             val sizeArc = Size(cardWidth, cardHeight) / 2.2f
+             val path = Path()
+             path.addRect(rect = Rect(Offset(
+                 (size.width - sizeArc.width) / 2f,
+                 (size.height - sizeArc.height) / 2f
+             ), Size(500f, 400f)))
+             clipPath(path) {
+                 rotate(45f) {
+
+                     drawRect(
+                         color = Color.Cyan,
+                         size = Size(widthOfUnit, widthOfUnit),
+                         topLeft = Offset(
+                             (size.width - sizeArc.width) / 2f,
+                             (size.height - sizeArc.height) / 2f
+                         ),
+                     )
+                 }
+             }
+             drawArc(
+                 color = Color.Magenta,
+                 size = sizeArc,
+                 topLeft = Offset(
+                     (size.width - sizeArc.width) / 2f,
+                     (size.height - sizeArc.height) / 2f
+                 ),
+                 startAngle = 10f,
+                 sweepAngle = 20f,
+                 useCenter = true
+             )
+         }*/
+}

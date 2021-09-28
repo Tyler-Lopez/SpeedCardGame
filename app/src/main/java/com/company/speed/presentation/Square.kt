@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
@@ -23,7 +24,7 @@ fun Square(
     degreeRotation: Float,
     topLeftX: Int,
     topLeftY: Int,
-    color: Color,
+    gradient: Brush,
 ) {
     val pxValue = with(LocalDensity.current) {
         unitLength.dp.toPx()
@@ -47,7 +48,7 @@ fun Square(
             pivot = rectCenter
         ) {
             drawRect(
-                color = color,
+                brush = gradient,
                 size = rectSize,
                 topLeft = rectTopLeft
             )

@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -65,6 +66,31 @@ fun MyCanvas() {
 fun PlayingCard(
     modifier: Modifier = Modifier,
 ) {
+    // This is simply some practice exploring the heart, has revealed much work is needed to be done.
+    BoxWithConstraints() {
+        val width = (this.maxWidth - 20.dp)/3
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                for (i in 0..2) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(width)
+                            .padding(10.dp)
+                    ) {
+                        Heart()
+                    }
+                }
+            }
+        }
+    }
     Heart()
     /* BoxWithConstraints(modifier = modifier.fillMaxSize()) {
          val cardWidth = constraints.maxWidth.toFloat()

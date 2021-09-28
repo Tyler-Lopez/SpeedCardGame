@@ -65,7 +65,8 @@ fun PlayingCard(
     Square(unitLength = 100, degreeRotation = 0f, topLeftX = 150, topLeftY = 100, color = Color.Magenta)
     SmallTriangle(unitLength = 100, degreeRotation = 45f, topLeftX = 34, topLeftY = 325, color = Color.Red)
     LargeTriangle(preUnitLength = 100, degreeRotation = 0f, topLeftX = 50, topLeftY = 300, color = Color.Blue)
-
+    MediumTriangle(preUnitLength = 100, degreeRotation = 0f, topLeftX = 50, topLeftY = 300, color = Color.Yellow)
+    Parallelogram(unitLength = 100, degreeRotation = 45f, topLeftX = 50, topLeftY = 300, color = Color.Black)
     /* BoxWithConstraints(modifier = modifier.fillMaxSize()) {
          val cardWidth = constraints.maxWidth.toFloat()
          val cardHeight = cardWidth * 1.25f

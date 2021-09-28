@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 fun SmallTriangle(
     unitLength: Int,
     degreeRotation: Float,
-    topLeftX: Int,
-    topLeftY: Int,
+    topLeftX: Dp,
+    topLeftY: Dp,
     color: Color,
 ) {
     val pxValue = with(LocalDensity.current) {
@@ -34,7 +34,7 @@ fun SmallTriangle(
     Canvas(
         modifier = Modifier
             .size(unitLength.dp + (unitLength.dp / 2))
-            .offset((topLeftX).dp, (topLeftY).dp)
+            .offset(topLeftX, topLeftY)
     ) {
         rotate(
             degrees = degreeRotation,

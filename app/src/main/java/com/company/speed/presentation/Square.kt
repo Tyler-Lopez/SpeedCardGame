@@ -29,31 +29,27 @@ fun Square(
         unitLength.dp.toPx()
     }
     // https://www.hand2mind.com/glossary-of-hands-on-manipulatives/tangrams
-    val rectSize = Size(pxValue, pxValue)
-    val canvasSize = Size(pxValue + pxValue / 2, pxValue + pxValue / 2)
     Canvas(
         modifier = Modifier
-            .size(unitLength.dp + (unitLength.dp / 2))
-            .offset((topLeftX).dp, (topLeftY).dp)
+            .fillMaxSize()
     ) {
+        val rectSize = Size(pxValue, pxValue)
+        val rectCenter = Offset(
+            topLeftX.toFloat(),
+            topLeftY.toFloat()
+        )
+        val rectTopLeft = Offset(
+            rectCenter.x - (pxValue / 2),
+            rectCenter.y - (pxValue / 2)
+        )
         rotate(
             degrees = degreeRotation,
-            pivot = center
+            pivot = rectCenter
         ) {
-            val path = Path()
-            path.addRect(
-                rect = Rect(
-                    offset = Offset(this.center.x - (canvasSize.width / 2f), this.center.y),
-                    size = canvasSize
-                )
-            )
             drawRect(
                 color = color,
                 size = rectSize,
-                topLeft = Offset(
-                    this.center.x - (rectSize.width / 2f),
-                    this.center.y - (rectSize.height / 2f)
-                )
+                topLeft = rectTopLeft
             )
         }
     }

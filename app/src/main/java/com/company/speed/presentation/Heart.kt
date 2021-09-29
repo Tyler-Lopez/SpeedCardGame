@@ -87,6 +87,7 @@ fun Heart(
                 )
             )
         )
+
         val mdPxHypotenuse = sqrt((1.5f * unitLength).toFloat().pow(2) + (1.5f * unitLength).toFloat().pow(2))
         val mdTriangleHeight = sqrt(((1.5f * unitLength).toFloat().pow(2f)) - ((0.5f * mdPxHypotenuse).pow(2.0f)))
         val mdAdjustment = ((mdTriangleHeight/2f)/sqrt(2f))
@@ -150,21 +151,7 @@ fun Heart(
                 )
             )
         )
-        LargeTriangle(
-            preUnitLength = unitLength,
-            degreeRotation = 180f,
-            translationX = -distanceToCenterSquare,
-            translationY = -(distanceToCenterSquare + (2 * distanceToCenterSquare)),
-            topLeftX = centerX,
-            topLeftY = centerY.toInt(),
 
-            gradient = Brush.verticalGradient(
-                listOf(
-                    RedPortlandOrange,
-                    RedCrimson
-                )
-            )
-        )
         LargeTriangle(
             preUnitLength = unitLength,
             degreeRotation = 180f,
@@ -180,8 +167,36 @@ fun Heart(
                 )
             )
         )
+        LargeTriangle(
+            preUnitLength = unitLength,
+            degreeRotation = 180f,
+            translationX = -distanceToCenterSquare,
+            translationY = -(distanceToCenterSquare + (2 * distanceToCenterSquare)),
+            topLeftX = centerX,
+            topLeftY = centerY.toInt(),
 
-
+            gradient = Brush.verticalGradient(
+                listOf(
+                    RedPortlandOrange,
+                    RedCrimson
+                )
+            )
+        )
+        SmallTriangle(
+            unitLength = unitLength,
+            degreeRotation = 180f,
+            translationX = (distanceToCenterSquare).toFloat(),
+            translationY = (-3.5f * distanceToCenterSquare).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    RedRed,
+                    RedRedOrange,
+                    RedPortlandOrange
+                )
+            )
+        )
 /*
 
 

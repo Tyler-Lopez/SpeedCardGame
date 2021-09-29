@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.company.speed.ui.theme.*
-import kotlin.math.pow
-import kotlin.math.sin
-import kotlin.math.sqrt
+import java.lang.Math.cos
+import java.lang.Math.tan
+import kotlin.math.*
 
 @Composable
 fun Heart(
@@ -50,20 +50,6 @@ fun Heart(
         val pxHypotenuse = sqrt(unitLength.toFloat().pow(2) + unitLength.toFloat().pow(2))
         val triangleHeight = sqrt((unitLength.toFloat().pow(2f)) - ((0.5f * pxHypotenuse).pow(2.0f)))
         val translateY = sqrt(triangleHeight.pow(2f) + unitLength.toFloat().pow(2f))
-        SmallTriangle(
-            unitLength = unitLength,
-            degreeRotation = 90f,
-            translationX = (triangleHeight * 1.5).toFloat(),
-            translationY = (-pxHypotenuse - triangleHeight).toFloat(),
-            topLeftX = centerX,
-            topLeftY = centerY,
-            gradient = Brush.verticalGradient(
-                listOf(
-                    Color.Transparent,
-                    RedCrimson
-                )
-            )
-        )
 
         val pxValue = with(LocalDensity.current) {
             unitLength.dp.toPx()
@@ -87,6 +73,40 @@ fun Heart(
         // https://www.mathsisfun.com/algebra/trig-finding-side-right-triangle.html
 
         val distanceToCenterSquare = sin(.78539816f) * (pxValue)
+        SmallTriangle(
+            unitLength = unitLength,
+            degreeRotation = 90f,
+            translationX = (distanceToCenterSquare/2f).toFloat(),
+            translationY = (-distanceToCenterSquare).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Transparent,
+                    RedCrimson
+                )
+            )
+        )
+        val mdPxHypotenuse = sqrt((1.5f * unitLength).toFloat().pow(2) + (1.5f * unitLength).toFloat().pow(2))
+        val mdTriangleHeight = sqrt(((1.5f * unitLength).toFloat().pow(2f)) - ((0.5f * mdPxHypotenuse).pow(2.0f)))
+        val mdAdjustment = ((mdTriangleHeight/2f)/sqrt(2f))
+
+
+        MediumTriangle(
+            preUnitLength = unitLength,
+            degreeRotation = 135f,
+            translationX = (1.5f*distanceToCenterSquare),
+            translationY = (-1.5f*distanceToCenterSquare).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Transparent,
+                    RedCrimson
+                )
+            )
+        )
+/*
         SmallTriangle(
             unitLength = unitLength,
             degreeRotation = 270f,
@@ -114,7 +134,7 @@ fun Heart(
                     RedCrimson
                 )
             )
-        )
+        )*/
         LargeTriangle(
             preUnitLength = unitLength,
             degreeRotation = 0f,
@@ -130,27 +150,26 @@ fun Heart(
                 )
             )
         )
+        LargeTriangle(
+            preUnitLength = unitLength,
+            degreeRotation = 180f,
+            translationX = -distanceToCenterSquare,
+            translationY = -(distanceToCenterSquare + (2 * distanceToCenterSquare)),
+            topLeftX = centerX,
+            topLeftY = centerY.toInt(),
+
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Transparent,
+                    RedCrimson
+                )
+            )
+        )
 
 
 /*
 
-        val mdPxHypotenuse = sqrt((1.5f * unitLength).toFloat().pow(2) + (1.5f * unitLength).toFloat().pow(2))
-        val mdTriangleHeight = sqrt(((1.5f * unitLength).toFloat().pow(2f)) - ((0.5f * mdPxHypotenuse).pow(2.0f)))
-        MediumTriangle(
-            preUnitLength = unitLength,
-            degreeRotation = 135f,
-            translationX = (triangleHeight * 1.5).toFloat() + distanceToCenterSquare,
-            translationY = (-distanceToCenterSquare * 1.5).toFloat(),
-            topLeftX = centerX,
-            topLeftY = centerY,
-            gradient = Brush.verticalGradient(
-                    listOf(
-                        Color.Transparent,
-                        RedCrimson
-                    )
-            )
 
-        )
         Parallelogram(
             unitLength = unitLength,
             degreeRotation = 0f,

@@ -31,7 +31,8 @@ fun MediumTriangle(
     topLeftY: Int,
     gradient: Brush,
 ) {
-    val unitLength = preUnitLength*1.4f
+    // https://betterthanpi.com/tangrams-a-lesson-in-geometry/
+    val unitLength = sqrt(2f) * preUnitLength
     val pxValue = with(LocalDensity.current) {
         unitLength.dp.toPx()
     }

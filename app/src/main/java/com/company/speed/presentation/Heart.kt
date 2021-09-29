@@ -1,5 +1,6 @@
 package com.company.speed.presentation
 
+import android.os.PersistableBundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -8,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.company.speed.ui.theme.*
 import kotlin.math.pow
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 @Composable
@@ -28,6 +31,43 @@ fun Heart(
 
 
 
+
+        /*
+        Square(
+            unitLength = unitLength,
+            degreeRotation = 45f,
+            translationX = 2f*unitLength.toFloat(),
+            translationY =  2f*unitLength.toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Cyan,
+                    Color.Blue
+                )
+            )
+        )*/
+        val pxHypotenuse = sqrt(unitLength.toFloat().pow(2) + unitLength.toFloat().pow(2))
+        val triangleHeight = sqrt((unitLength.toFloat().pow(2f)) - ((0.5f * pxHypotenuse).pow(2.0f)))
+        val translateY = sqrt(triangleHeight.pow(2f) + unitLength.toFloat().pow(2f))
+        SmallTriangle(
+            unitLength = unitLength,
+            degreeRotation = 90f,
+            translationX = (triangleHeight * 1.5).toFloat(),
+            translationY = (-pxHypotenuse - triangleHeight).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Transparent,
+                    RedCrimson
+                )
+            )
+        )
+
+        val pxValue = with(LocalDensity.current) {
+            unitLength.dp.toPx()
+        }
         Square(
             unitLength = unitLength,
             degreeRotation = 45f,
@@ -42,35 +82,75 @@ fun Heart(
                 )
             )
         )
-        Square(
+        val lgPxHypotenuse = sqrt((2 * unitLength).toFloat().pow(2) + (2 * unitLength).toFloat().pow(2))
+        val lgTriangleHeight = sqrt(((2 * unitLength).toFloat().pow(2f)) - ((0.5f * pxHypotenuse).pow(2.0f)))
+        // https://www.mathsisfun.com/algebra/trig-finding-side-right-triangle.html
+
+        val distanceToCenterSquare = sin(.78539816f) * (pxValue)
+        SmallTriangle(
             unitLength = unitLength,
-            degreeRotation = 45f,
-            translationX = 2f*unitLength.toFloat(),
-            translationY =  2f*unitLength.toFloat(),
+            degreeRotation = 270f,
+            translationX = (triangleHeight * 1.5).toFloat() + distanceToCenterSquare,
+            translationY = (-pxHypotenuse - triangleHeight).toFloat(),
             topLeftX = centerX,
             topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
-                    Color.Cyan,
-                    Color.Blue
+                    Color.Transparent,
+                    RedCrimson
+                )
+            )
+        )
+        SmallTriangle(
+            unitLength = unitLength,
+            degreeRotation = 0f,
+            translationX = (triangleHeight * 1.5).toFloat() + (distanceToCenterSquare * 1.5f),
+            translationY = (-pxHypotenuse - triangleHeight - (distanceToCenterSquare * 0.5)).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Transparent,
+                    RedCrimson
+                )
+            )
+        )
+        LargeTriangle(
+            preUnitLength = unitLength,
+            degreeRotation = 0f,
+            translationX = -distanceToCenterSquare,
+            translationY = -distanceToCenterSquare,
+            topLeftX = centerX,
+            topLeftY = centerY.toInt(),
+
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Transparent,
+                    RedCrimson
                 )
             )
         )
 
+
+/*
+
+        val mdPxHypotenuse = sqrt((1.5f * unitLength).toFloat().pow(2) + (1.5f * unitLength).toFloat().pow(2))
+        val mdTriangleHeight = sqrt(((1.5f * unitLength).toFloat().pow(2f)) - ((0.5f * mdPxHypotenuse).pow(2.0f)))
         MediumTriangle(
             preUnitLength = unitLength,
             degreeRotation = 135f,
-            topLeftX = centerX + (3 * unitLength),
-            topLeftY = centerY - (2 * unitLength),
+            translationX = (triangleHeight * 1.5).toFloat() + distanceToCenterSquare,
+            translationY = (-distanceToCenterSquare * 1.5).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
             gradient = Brush.verticalGradient(
-                listOf(
-                    RedRed,
-                    RedSpanishRed
-                )
+                    listOf(
+                        Color.Transparent,
+                        RedCrimson
+                    )
             )
 
         )
-        /*
         Parallelogram(
             unitLength = unitLength,
             degreeRotation = 0f,
@@ -83,19 +163,7 @@ fun Heart(
                 )
             )
         )
-        LargeTriangle(
-            preUnitLength = unitLength,
-            degreeRotation = 180f,
-            topLeftX = centerX - (2 * unitLength),
-            topLeftY = centerY - (9 * unitLength).toInt(),
 
-            gradient = Brush.verticalGradient(
-                listOf(
-                    RedTomato,
-                    RedCrimson
-                )
-            )
-        )
         LargeTriangle(
             preUnitLength = unitLength,
             degreeRotation = 0f,
@@ -123,24 +191,8 @@ fun Heart(
             )
 
         )
+*/
 
-        val pxHypotenuse = sqrt(unitLength.toFloat().pow(2) + unitLength.toFloat().pow(2))
-        val triangleHeight = sqrt((unitLength.toFloat().pow(2f)) - ((0.5f * pxHypotenuse).pow(2.0f)))
-        val translateY = sqrt(triangleHeight.pow(2f) + unitLength.toFloat().pow(2f))
-        SmallTriangle(
-            unitLength = unitLength,
-            degreeRotation = 90f,
-            translationX = unitLength.toFloat(),
-            translationY = -(2.1f*unitLength).toFloat(),
-            topLeftX = centerX,
-            topLeftY = centerY,
-            gradient = Brush.verticalGradient(
-                listOf(
-                    RedRed,
-                    RedIndianRed
-                )
-            )
-        )*/
 
     }
 }

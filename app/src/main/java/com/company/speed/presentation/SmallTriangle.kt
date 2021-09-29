@@ -53,7 +53,7 @@ fun SmallTriangle(
         )
         val translatedPivot = Offset(
             triangleCenter.x,
-            triangleCenter.y -(0.5f * triangleHeight)
+            triangleCenter.y - (0.5f * triangleHeight)
         )
         translate(left = translationX, top = translationY) {
             rotate(
@@ -85,18 +85,24 @@ fun SmallTriangle(
 
                         }
                     }
+                    /*
                     drawRect(
                         color = Color.Black,
                         size = Size(5f, 5f),
                         topLeft = Offset(triangleCenter.x - 2.5f, triangleCenter.y - 2.5f)
                     )
 
+                     */
+
                 }
-                drawRect(
-                    color = Color.Blue,
-                    size = Size(5f, 5f),
-                    topLeft = translatedPivot
-                )
+/*
+drawRect(
+    color = Color.Blue,
+    size = Size(5f, 5f),
+    topLeft = translatedPivot
+)
+
+                */
             }
         }
     }

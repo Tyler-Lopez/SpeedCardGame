@@ -81,12 +81,12 @@ fun LargeTriangle(
                                     rectCenter.y - (rectSize.height / 2f)
                                 )
                             )
-                        }
+                        }/*
                         drawRect(
                             color = Color.Black,
                             size = Size(5f, 5f),
                             topLeft = Offset(triangleCenter.x - 2.5f, triangleCenter.y - 2.5f)
-                        )
+                        )*/
                     }
                 }
             }

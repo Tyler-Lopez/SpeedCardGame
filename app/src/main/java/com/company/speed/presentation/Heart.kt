@@ -21,7 +21,7 @@ fun Heart(
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val centerX = this.constraints.maxWidth / 2
-        val centerY = this.constraints.maxHeight / 2
+        val centerY = (this.constraints.maxHeight / 1.5).toInt()
         val unitLength = (sqrt(this.constraints.maxWidth.toDouble() * this.constraints.maxHeight) / 20).toInt()
 
 
@@ -82,7 +82,7 @@ fun Heart(
             topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
-                    Color.Transparent,
+                    RedFireBrick,
                     RedCrimson
                 )
             )
@@ -101,8 +101,8 @@ fun Heart(
             topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
-                    Color.Transparent,
-                    RedCrimson
+                    RedPersianRed,
+                    RedJasper
                 )
             )
         )
@@ -145,7 +145,7 @@ fun Heart(
 
             gradient = Brush.verticalGradient(
                 listOf(
-                    Color.Transparent,
+                    RedLightSalmon,
                     RedCrimson
                 )
             )
@@ -160,8 +160,23 @@ fun Heart(
 
             gradient = Brush.verticalGradient(
                 listOf(
-                    Color.Transparent,
+                    RedPortlandOrange,
                     RedCrimson
+                )
+            )
+        )
+        LargeTriangle(
+            preUnitLength = unitLength,
+            degreeRotation = 180f,
+            translationX = +distanceToCenterSquare,
+            translationY = -(distanceToCenterSquare + (2 * distanceToCenterSquare)),
+            topLeftX = centerX,
+            topLeftY = centerY.toInt(),
+
+            gradient = Brush.verticalGradient(
+                listOf(
+                    RedRedOrange,
+                    RedTomato
                 )
             )
         )

@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -22,6 +23,8 @@ import androidx.compose.ui.unit.dp
 fun Square(
     unitLength: Int,
     degreeRotation: Float,
+    translationX: Float,
+    translationY: Float,
     topLeftX: Int,
     topLeftY: Int,
     gradient: Brush,
@@ -43,22 +46,24 @@ fun Square(
             rectCenter.x - (pxValue / 2),
             rectCenter.y - (pxValue / 2)
         )
-        rotate(
-            degrees = degreeRotation,
-            pivot = rectCenter
-        ) {
+        translate(left = translationX, top = translationY) {
+            rotate(
+                degrees = degreeRotation,
+                pivot = rectCenter
+            ) {
 
-            drawRect(
-                brush = gradient,
-                size = rectSize,
-                topLeft = rectTopLeft
-            )
-            // Center debug
-            drawRect(
-                color = Color.Black,
-                size = Size(5f, 5f),
-                topLeft = Offset(rectCenter.x-2.5f, rectCenter.y-2.5f)
-            )
+                drawRect(
+                    brush = gradient,
+                    size = rectSize,
+                    topLeft = rectTopLeft
+                )
+                // Center debug
+                drawRect(
+                    color = Color.Black,
+                    size = Size(5f, 5f),
+                    topLeft = Offset(rectCenter.x - 2.5f, rectCenter.y - 2.5f)
+                )
+            }
         }
     }
 }

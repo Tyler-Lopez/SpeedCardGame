@@ -31,12 +31,28 @@ fun Heart(
         Square(
             unitLength = unitLength,
             degreeRotation = 45f,
+            translationX = 0f,
+            translationY = 0f,
             topLeftX = centerX,
             topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
                     RedJasper,
                     RedPersianRed
+                )
+            )
+        )
+        Square(
+            unitLength = unitLength,
+            degreeRotation = 45f,
+            translationX = 2f*unitLength.toFloat(),
+            translationY =  2f*unitLength.toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    Color.Cyan,
+                    Color.Blue
                 )
             )
         )
@@ -54,6 +70,7 @@ fun Heart(
             )
 
         )
+        /*
         Parallelogram(
             unitLength = unitLength,
             degreeRotation = 0f,
@@ -65,7 +82,7 @@ fun Heart(
                     RedPortlandOrange
                 )
             )
-        )/*
+        )
         LargeTriangle(
             preUnitLength = unitLength,
             degreeRotation = 180f,
@@ -90,7 +107,7 @@ fun Heart(
                     RedIndianRed
                 )
             )
-        )*/
+        )
         SmallTriangle(
             unitLength = unitLength,
             degreeRotation = 180f,
@@ -123,7 +140,7 @@ fun Heart(
                     RedIndianRed
                 )
             )
-        )
+        )*/
 
     }
 }

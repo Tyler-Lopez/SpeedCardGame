@@ -39,12 +39,17 @@ fun MediumTriangle(
         topLeftY.toFloat()
     )
     val pxHypotenuse = sqrt(pxValue.pow(2) + pxValue.pow(2))
+    val triangleHeight = sqrt((pxValue.pow(2)) - ((pxHypotenuse / 2).pow(2)))
+    val triangleCenter = Offset(
+        rectCenter.x,
+        rectCenter.y + (triangleHeight / 3f)
+    )
     Canvas(
         modifier = Modifier.fillMaxSize()
     ) {
         rotate(
             degrees = degreeRotation,
-            pivot = rectCenter
+            pivot = triangleCenter
         ) {
             val path = Path()
             path.addRect(
@@ -68,6 +73,11 @@ fun MediumTriangle(
                     )
                 }
             }
+            drawRect(
+                color = Color.Black,
+                size = Size(5f, 5f),
+                topLeft = Offset(triangleCenter.x-2.5f, triangleCenter.y-2.5f)
+            )
         }
     }
 }

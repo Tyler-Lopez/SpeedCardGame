@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -39,32 +40,44 @@ fun LargeTriangle(
         topLeftY.toFloat()
     )
     val pxHypotenuse = sqrt(pxValue.pow(2) + pxValue.pow(2))
+    val triangleHeight = sqrt((pxValue.pow(2f)) - ((0.5f * pxHypotenuse).pow(2.0f)))
+    val triangleCenter = Offset(
+        rectCenter.x,
+        rectCenter.y + (triangleHeight / 2)
+    )
+    val translatedPivot = Offset(
+        triangleCenter.x,
+        triangleCenter.y + triangleHeight
+    )
     Canvas(
         modifier = Modifier.fillMaxSize()
     ) {
         rotate(
             degrees = degreeRotation,
-            pivot = rectCenter) {
-            val path = Path()
-            path.addRect(
-                rect = Rect(
-                    offset = Offset(rectCenter.x - (pxHypotenuse / 2), rectCenter.y),
-                    size = Size(pxHypotenuse, pxHypotenuse)
-                )
-            )
-            clipPath(path) {
-                rotate(
-                    degrees = 45f,
-                    pivot = rectCenter
-                ) {
-                    drawRect(
-                        brush = gradient,
-                        size = rectSize,
-                        topLeft = Offset(
-                            rectCenter.x - (rectSize.width / 2f),
-                            rectCenter.y - (rectSize.height / 2f)
-                        )
+            pivot = translatedPivot) {
+            translate(top = triangleHeight) {
+
+                val path = Path()
+                path.addRect(
+                    rect = Rect(
+                        offset = Offset(rectCenter.x - (pxHypotenuse / 2), rectCenter.y),
+                        size = Size(pxHypotenuse, pxHypotenuse)
                     )
+                )
+                clipPath(path) {
+                    rotate(
+                        degrees = 45f,
+                        pivot = rectCenter
+                    ) {
+                        drawRect(
+                            brush = gradient,
+                            size = rectSize,
+                            topLeft = Offset(
+                                rectCenter.x - (rectSize.width / 2f),
+                                rectCenter.y - (rectSize.height / 2f)
+                            )
+                        )
+                    }
                 }
             }
         }

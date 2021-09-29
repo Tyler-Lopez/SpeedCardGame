@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.company.speed.ui.theme.*
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 @Composable
@@ -18,7 +19,7 @@ fun Heart(
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val centerX = this.constraints.maxWidth / 2
         val centerY = this.constraints.maxHeight / 2
-        val unitLength = (sqrt(this.constraints.maxWidth.toDouble() * this.constraints.maxHeight) / 30).toInt()
+        val unitLength = (sqrt(this.constraints.maxWidth.toDouble() * this.constraints.maxHeight) / 20).toInt()
 
 
 
@@ -31,7 +32,7 @@ fun Heart(
             unitLength = unitLength,
             degreeRotation = 45f,
             topLeftX = centerX,
-            topLeftY = centerY + (3 * unitLength),
+            topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
                     RedJasper,
@@ -39,23 +40,12 @@ fun Heart(
                 )
             )
         )
-        SmallTriangle(
-            unitLength = unitLength,
-            degreeRotation = 90f,
-            topLeftX = centerX + (2 * unitLength),
-            topLeftY = centerY + (unitLength),
-            gradient = Brush.verticalGradient(
-                listOf(
-                    RedRed,
-                    RedIndianRed
-                )
-            )
-        )
+
         MediumTriangle(
             preUnitLength = unitLength,
             degreeRotation = 135f,
-            topLeftX = centerX + (4 * unitLength),
-            topLeftY = centerY + unitLength,
+            topLeftX = centerX + (3 * unitLength),
+            topLeftY = centerY - (2 * unitLength),
             gradient = Brush.verticalGradient(
                 listOf(
                     RedRed,
@@ -75,12 +65,12 @@ fun Heart(
                     RedPortlandOrange
                 )
             )
-        )
+        )/*
         LargeTriangle(
             preUnitLength = unitLength,
             degreeRotation = 180f,
             topLeftX = centerX - (2 * unitLength),
-            topLeftY = centerY - (unitLength),
+            topLeftY = centerY - (9 * unitLength).toInt(),
 
             gradient = Brush.verticalGradient(
                 listOf(
@@ -92,20 +82,22 @@ fun Heart(
         LargeTriangle(
             preUnitLength = unitLength,
             degreeRotation = 0f,
-            topLeftX = centerX - (2 * unitLength),
-            topLeftY = centerY - (unitLength),
+            topLeftX = centerX,
+            topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
                     RedRed,
                     RedIndianRed
                 )
             )
-        )
+        )*/
         SmallTriangle(
             unitLength = unitLength,
             degreeRotation = 180f,
-            topLeftX = centerX + (2 * unitLength),
-            topLeftY = centerY - (3 * unitLength),
+            translationX = 0f,
+            translationY = 0f,
+            topLeftX = centerX,
+            topLeftY = centerY,
             gradient = Brush.verticalGradient(
                 listOf(
                     RedDarkSalmon,
@@ -113,6 +105,24 @@ fun Heart(
                 )
             )
 
+        )
+
+        val pxHypotenuse = sqrt(unitLength.toFloat().pow(2) + unitLength.toFloat().pow(2))
+        val triangleHeight = sqrt((unitLength.toFloat().pow(2f)) - ((0.5f * pxHypotenuse).pow(2.0f)))
+        val translateY = sqrt(triangleHeight.pow(2f) + unitLength.toFloat().pow(2f))
+        SmallTriangle(
+            unitLength = unitLength,
+            degreeRotation = 90f,
+            translationX = unitLength.toFloat(),
+            translationY = -(2.1f*unitLength).toFloat(),
+            topLeftX = centerX,
+            topLeftY = centerY,
+            gradient = Brush.verticalGradient(
+                listOf(
+                    RedRed,
+                    RedIndianRed
+                )
+            )
         )
 
     }

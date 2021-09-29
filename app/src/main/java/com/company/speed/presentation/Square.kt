@@ -47,10 +47,17 @@ fun Square(
             degrees = degreeRotation,
             pivot = rectCenter
         ) {
+
             drawRect(
                 brush = gradient,
                 size = rectSize,
                 topLeft = rectTopLeft
+            )
+            // Center debug
+            drawRect(
+                color = Color.Black,
+                size = Size(5f, 5f),
+                topLeft = Offset(rectCenter.x-2.5f, rectCenter.y-2.5f)
             )
         }
     }

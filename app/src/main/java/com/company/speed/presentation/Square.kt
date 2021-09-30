@@ -58,11 +58,12 @@ fun Square(
                     topLeft = rectTopLeft
                 )
                 // Center debug
+                /*
                 drawRect(
                     color = Color.Black,
                     size = Size(5f, 5f),
                     topLeft = Offset(rectCenter.x - 2.5f, rectCenter.y - 2.5f)
-                )
+                )*/
             }
         }
     }
